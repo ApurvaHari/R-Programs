@@ -1,0 +1,210 @@
+---
+title: "Assmt5"
+author: "Apurva Hari"
+date: "July 20, 2016"
+output: pdf_document
+---
+```{r}
+
+#installing the MAss package
+#install.packages("MASS")
+
+#loading the package MASS
+library(MASS)
+
+#loading the dataset Boston
+data("Boston")
+
+#checking data type of the dataset Boston to verify if it is a data frame
+class(Boston)
+
+#Finding the column names for Boston and siplaying them
+col_names_Boston <- colnames(Boston)
+col_names_Boston
+
+#lapply(Boston,class)  #Finding the class of each column in Boston
+typeof(Boston$crim)
+
+# Fitting the data with linear regression. Using the parameter black to predict the number of crimes per town
+fit <- lm(formula = crim ~ black, data = Boston )
+
+#Plotting the fitted data
+plot( Boston$black, Boston$crib, main ="Crimes",xlab = "Black population per 1000",ylab ="Crimes")
+
+#Getting the summary of the fitted linear model to understand some parameters of the model including - the slope and x-intercept
+summary(fit)
+
+abline(fit) #Adding a straight line to the plot to see how the model fits
+
+
+
+#Linear fit for predicting the per capita crime rate per town using proportion of residential land zoned for lots over 25,000 sq.ft. (zn)
+
+fit_zn <- lm(formula = crim ~ zn, data = Boston )
+plot( Boston$zn, Boston$crib, main ="Crimes",xlab = "land-zoned residential area",ylab ="Crimes")
+
+summary(fit_zn)
+abline(fit_zn)
+
+
+
+#Linear fit for predicting the per capita crime rate per town using proportion of non-retail business acres per town(indus)
+
+fit_indus <- lm(formula = crim ~ indus, data = Boston )
+plot( Boston$indus, Boston$crib, main ="Crimes",xlab = "Not retail business acres",ylab ="Crimes")
+
+summary(fit_indus)
+abline(fit_indus)
+
+
+#Linear fit for predicting the per capita crime rate per town using Charles River dummy variable(chas)
+
+fit_chas <- lm(formula = crim ~ chas, data = Boston )
+plot( Boston$chas, Boston$crib, main ="Crimes",xlab = "Charles river dummy variable",ylab ="Crimes")
+
+summary(fit_chas)
+abline(fit_chas)
+
+
+#Linear fit for predicting the per capita crime rates using nitrogen oxides concentration (nox)
+
+fit_nox <- lm(formula = crim ~ nox, data = Boston )
+plot( Boston$nox, Boston$crib, main ="Crimes",xlab = "nitrogen oxides concentration",ylab ="Crimes")
+
+summary(fit_nox)
+abline(fit_nox)
+
+
+#Linear fit for predicting the per capita crime rate per town using the average number of rooms per dwelling
+
+fit_rm <- lm(formula = crim ~ rm, data = Boston )
+plot( Boston$rm, Boston$crib, main ="Crimes",xlab = "Average number of rooms per dwelling", ylab ="Crimes")
+
+summary(fit_rm)
+abline(fit_rm)
+
+
+#Linear fit for predicting the per capita crime rate per town using proportion of owner-occupied units built prior to 1940
+
+fit_age <- lm(formula = crim ~ age, data = Boston )
+plot( Boston$age, Boston$crib, main ="Crimes",xlab = "proportion of owner-occupied units built prior to 1940",ylab ="Crimes")
+
+summary(fit_age)
+abline(fit_age)
+
+
+#Linear fit for predicting the per capita crime rate per town using the weighted mean of distances to five Boston employment centres
+
+fit_dis <- lm(formula = crim ~ dis, data = Boston )
+plot( Boston$dis, Boston$crib, main ="Crimes",xlab = "weighted mean of distances to five Boston employment centres",ylab ="Crimes")
+
+summary(fit_dis)
+abline(fit_dis)
+
+
+#Linear fit for predicting the per capita crime rate per town using the index of accessibility to radial highways
+
+fit_rad <- lm(formula = crim ~ rad, data = Boston )
+plot( Boston$rad, Boston$crib, main ="Crimes",xlab = "index of accessibility to radial highways",ylab ="Crimes")
+
+summary(fit_rad)
+abline(fit_rad)
+
+
+#Linear fit for predicting the per capita crime rate per town using the full-value property-tax rate per \$10,000
+
+fit_tax <- lm(formula = crim ~ tax, data = Boston )
+plot( Boston$tax, Boston$crib, main ="Crimes",xlab = "full-value property-tax rate per 10,000 dollars",ylab ="Crimes")
+
+summary(fit_tax)
+abline(fit_tax)
+
+
+#Linear fit for predicting the per capita crime rate per town using pupil-teacher ratio by town
+
+fit_ptratio <- lm(formula = crim ~ ptratio, data = Boston )
+plot( Boston$ptratio, Boston$crib, main ="Crimes",xlab = "pupil-teacher ratio by town",ylab ="Crimes")
+
+summary(fit_ptratio)
+abline(fit_ptratio)
+
+
+#Linear fit for predicting the per capita crime rate per town using the lower status of the population (percent)
+
+fit_lstat <- lm(formula = crim ~ lstat, data = Boston )
+plot( Boston$lstat, Boston$crib, main ="Crimes",xlab = "lower status of the population (percent)",ylab ="Crimes")
+
+summary(fit_lstat)
+abline(fit_lstat)
+
+
+#Linear fit for predicting the per capita crime rate per town using the median value of owner-occupied homes in \$1000s
+
+fit_medv <- lm(formula = crim ~ medv, data = Boston )
+plot( Boston$medv, Boston$crib, main ="Crimes",xlab = "median value of owner-occupied homes in \1000s dollars",ylab ="Crimes")
+
+summary(fit_medv)
+abline(fit_medv)
+
+
+#Multiple Linear Regression
+
+cor(Boston) #checking for correlation between predictors
+
+#Fitting the model using multiple linear regression
+multi_fit <- lm(crim ~ rm + zn + indus + chas + nox + age + dis +rad + tax + ptratio +
+                  black + lstat + medv,data = Boston)
+
+
+summary(multi_fit)
+confint(multi_fit) #checking for the confidence interval
+
+
+
+#Non- Linear Regression for each of the predictors to identify the crime rate per town
+fit_non_linear <- lm(formula = crim ~ black + I(black ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear))
+
+
+fit_non_linear_zn <- lm(formula = crim ~ zn + I(zn ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_zn))
+
+fit_non_linear_indus <- lm(formula = crim ~ indus + I(indus ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_indus))
+
+fit_non_linear_chas <- lm(formula = crim ~ chas + I(chas ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_chas))
+
+fit_non_linear_nox <- lm(formula = crim ~ nox + I(nox ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_nox))
+
+fit_non_linear_age <- lm(formula = crim ~ age + I(age ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_age))
+
+fit_non_linear_dis <- lm(formula = crim ~ dis + I(dis ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_dis))
+
+fit_non_linear_rad <- lm(formula = crim ~ rad + I(rad ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_rad))
+
+fit_non_linear_tax <- lm(formula = crim ~ tax + I(tax ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_tax))
+
+fit_non_linear_ptratio <- lm(formula = crim ~ ptratio + I(ptratio ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_ptratio))
+
+fit_non_linear_lstat <- lm(formula = crim ~ lstat + I(lstat ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_lstat))
+
+fit_non_linear_medv <- lm(formula = crim ~ medv + I(medv ^2), data = Boston)
+lines(Boston$crim,fitted(fit_non_linear_medv))
+
+
+
+
+
+
+
+
+
+
