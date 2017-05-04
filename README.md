@@ -1,5 +1,3 @@
-# RProgramming
-R Programming learnt from various resources
+# R Programming
 
-Currently uploading some of the assignments i did at the R Programming class at UC Berkeley Extension.
-
+This is a collection of the R programs I developed since the beginning of 2016. As of now, I include some of the assignments I did at the R Programming course at UC Berkeley Extension in 2016.
